@@ -1,5 +1,12 @@
 
 Test = {
+  now: function() {
+    if (Date.now)
+      return Date.now();
+    else
+      return (new Date().getTime());
+  },
+
   get: function(id) {
     return document.getElementById(id);
   },
@@ -11,7 +18,7 @@ Test = {
 
   step: function() {
     var e = Test.easer,
-        now = Date.now() - Test.start,
+        now = Test.now() - Test.start,
         end = Test.end - Test.start;
 
     if (now > end) {
@@ -44,7 +51,7 @@ Test = {
     });
 
     // save start and end times
-    Test.start = Date.now();
+    Test.start = Test.now();
     Test.end = Test.start + dur * 1000;
 
     // create animation interval
