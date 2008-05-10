@@ -1,0 +1,5 @@
+
+Test = {
+  init: function() {
+  }
+};

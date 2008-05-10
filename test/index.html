@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <title>EasingJS Test Page</title>
+
+    <script type='text/javascript' src='../easing.js'></script>
+    <script type='text/javascript' src='test_page.js'></script>
+
+    <style type='text/css'>
+      body * {
+        font-family: arial, verdana, tacoma, helvetica, sans-serif;
+        font-size: 9pt;
+      }
+
+      .label {
+        text-align: right;
+      }
+
+      div#area {
+        border:   1px solid black;
+        margin:   10px;
+        padding:  5px;
+        height:   32px;
+        width:    500px;
+      }
+
+      div#test {
+        background-color: #000;
+
+        position: relative;
+
+        width:    32px;
+        height:   32px;
+        top:      0px;
+        left:     0px;
+      }
+    </style>
+  </head>
+
+  <body onload='Test.init();'>
+    <table>
+      <tr>
+        <td class='label'><label for='type'>Type:</label></td>
+        <td>
+          <select id='type'>
+            <option value='bounce'>Bounce easing.</option>
+            <option value='circular'>Circular easing.</option>
+            <option value='cubic'>Cubic (x^3) easing.</option>
+            <option value='elastic'>Elastic easing.</option>
+            <option value='exp'>Exponential (2^x) easing.</option>
+            <option value='linear'>Linear easing (default).</option>
+            <option value='quadratic'>Quadratic (x^2) easing.</option>
+            <option value='quartic'>Quartic (x^4) easing</option>
+            <option value='quintic'>Quintic (x^5) easing.</option>
+            <option value='sine'>Sinusoidal (cos(x)) easing.</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td class='label'><label for='side'>Side:</label></td>
+        <td>
+          <select id='side'>
+            <option value='none'>none</option>
+            <option value='both'>both</option>
+            <option value='in'>in</option>
+            <option value='out'>out</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td class='label'><label for='side'>Duration:</label></td>
+        <td>
+          <input type='text' id='dur' value='5'/>
+        </td>
+      </tr>
+
+      <tr>
+        <td class='label'>&nbsp;</td>
+        <td>
+          <button id='run'/>Test Easing</button>
+        </td>
+      </tr>
+    </table>
+
+    <div id='area'>
+      <div id='test'></div>
+    </div>
+  </body>
+</html>

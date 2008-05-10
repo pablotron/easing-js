@@ -27,6 +27,28 @@ And here's the same result, using the procedural API:
     // for a tween from 10 to 300
     var x = Easing.quadratic.ease_both(50, 10, 290, 100);
 
+EasingJS Modes
+==============
+Available easing types:
+
+  * bounce:     Bounce easing.
+  * circular:   Circular easing.
+  * cubic:      Cubic (x^3) easing.
+  * elastic:    Elastic easing.
+  * exp:        Exponential (2^x) easing.
+  * linear:     Linear easing (default).
+  * quadratic:  Quadratic (x^2) easing.
+  * quartic:    Quartic (x^4) easing
+  * quintic:    Quintic (x^5) easing.
+  * sine:       Sinusoidal (cos(x)) easing.
+
+Available easing sides:
+
+  * none:       Don't ease either side (default).
+  * both:       Ease both sides.
+  * in:         Ease in.
+  * out:        Ease out.
+
 About the Author
 ================
 Paul Duncan (pabs@pablotron.org)
