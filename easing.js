@@ -24,7 +24,7 @@
  * Easer: namespace for Easier class and methods.
  * @namespace
  */
-Easing = Easing || (function () {
+Easing = (function () {
   // return namespace
   var E       = {};
 
@@ -83,7 +83,7 @@ Easing = Easing || (function () {
     this.reset(o);
   };
 
-  E.Easer.prototype.reset(o) {
+  E.Easer.prototype.reset = function(o) {
     var key, name, type, side, err;
     for (key in o)
       this[key] = o[key];
@@ -109,7 +109,7 @@ Easing = Easing || (function () {
     }
   };
 
-  E.Easer.prototype.ease(time_now, begin_val, change_val, time_dur) {
+  E.Easer.prototype.ease = function(time_now, begin_val, change_val, time_dur) {
     return this.fn.apply(this, arguments);
   };
 
@@ -165,7 +165,7 @@ Easing = Easing || (function () {
       return c*(7.5625*t*t) + b;
     } else if (t < (bounce_ratios[1])) {
       return c*(7.5625*(t-=(bounce_factors[1]))*t + .75) + b;
-    } else if (t < (bouce_ratios[2])) {
+    } else if (t < (bounce_ratios[2])) {
       return c*(7.5625*(t-=(bounce_factors[2]))*t + .9375) + b;
     } else {
       return c*(7.5625*(t-=(bounce_factors[3]))*t + .984375) + b;
@@ -245,15 +245,15 @@ Easing = Easing || (function () {
   /* exponential easing */
   /**********************/
 
-  E.ease_exponential_in = function(t, b, c, d) {
+  E.ease_exp_in = function(t, b, c, d) {
     return (t==0) ? b : c * pow(2, 10 * (t/d - 1)) + b;
   };
 
-  E.ease_exponential_out = function(t, b, c, d) {
+  E.ease_exp_out = function(t, b, c, d) {
     return (t==d) ? b+c : c * (-pow(2, -10 * t/d) + 1) + b;
   };
 
-  E.ease_exponential_both = function(t, b, c, d) {
+  E.ease_exp_both = function(t, b, c, d) {
     if (t==0) return b;
     if (t==d) return b+c;
     if ((t/=d/2) < 1) return c/2 * pow(2, 10 * (t - 1)) + b;
