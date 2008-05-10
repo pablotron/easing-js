@@ -50,6 +50,13 @@
   <body onload='Test.init();'>
     <h1>EasingJS Test Page</h1>
 
+    <p>
+      This is a test page for <a
+      href='http://pablotron.org/software/easing-js/'>EasingJS</a>.
+      To test easing, select an easing type and side, then click the
+      <em>Test Easing</em> button.
+    </p>
+
     <fieldset id='cfg'>
       <legend>Easing Settings</legend>
 
@@ -58,7 +65,7 @@
           <td class='label'><label for='type'>Type:</label></td>
           <td>
             <select id='type'>
-              <option value='bounce'>Bounce</option>
+              <option value='bounce' selected='selected'>Bounce</option>
               <option value='circular'>Circular</option>
               <option value='cubic'>Cubic (x^3)</option>
               <option value='elastic'>Elastic</option>
@@ -79,7 +86,7 @@
               <option value='none'>none</option>
               <option value='both'>both</option>
               <option value='in'>in</option>
-              <option value='out'>out</option>
+              <option value='out' selected='selected'>out</option>
             </select>
           </td>
         </tr>
