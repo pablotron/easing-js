@@ -19,12 +19,13 @@
         border:   1px solid black;
         margin:   10px;
         padding:  5px;
-        height:   32px;
+        height:   34px;
         width:    500px;
       }
 
       div#test {
-        background-color: #000;
+        background-color: #f00;
+        border:   1px solid black;
 
         position: relative;
 
@@ -34,6 +35,12 @@
         left:     0px;
       }
 
+      fieldset#cfg {
+        margin: 10px;
+        padding: 5px;
+        width: 500px;
+      }
+
       input#dur {
         width: 30px;
       }
@@ -41,52 +48,58 @@
   </head>
 
   <body onload='Test.init();'>
-    <table>
-      <tr>
-        <td class='label'><label for='type'>Type:</label></td>
-        <td>
-          <select id='type'>
-            <option value='bounce'>Bounce</option>
-            <option value='circular'>Circular</option>
-            <option value='cubic'>Cubic (x^3)</option>
-            <option value='elastic'>Elastic</option>
-            <option value='exp'>Exponential (2^x)</option>
-            <option value='linear'>Linear(default).</option>
-            <option value='quadratic'>Quadratic (x^2)</option>
-            <option value='quartic'>Quartic (x^4)</option>
-            <option value='quintic'>Quintic (x^5)</option>
-            <option value='sine'>Sinusoidal (cos(x))</option>
-          </select>
-        </td>
-      </tr>
+    <h1>EasingJS Test Page</h1>
 
-      <tr>
-        <td class='label'><label for='side'>Side:</label></td>
-        <td>
-          <select id='side'>
-            <option value='none'>none</option>
-            <option value='both'>both</option>
-            <option value='in'>in</option>
-            <option value='out'>out</option>
-          </select>
-        </td>
-      </tr>
+    <fieldset id='cfg'>
+      <legend>Easing Settings</legend>
 
-      <tr>
-        <td class='label'><label for='side'>Duration:</label></td>
-        <td>
-          <input type='text' id='dur' value='3'/>
-          (seconds)
-        </td>
-      </tr>
+      <table>
+        <tr>
+          <td class='label'><label for='type'>Type:</label></td>
+          <td>
+            <select id='type'>
+              <option value='bounce'>Bounce</option>
+              <option value='circular'>Circular</option>
+              <option value='cubic'>Cubic (x^3)</option>
+              <option value='elastic'>Elastic</option>
+              <option value='exp'>Exponential (2^x)</option>
+              <option value='linear'>Linear (default)</option>
+              <option value='quadratic'>Quadratic (x^2)</option>
+              <option value='quartic'>Quartic (x^4)</option>
+              <option value='quintic'>Quintic (x^5)</option>
+              <option value='sine'>Sinusoidal (cos(x))</option>
+            </select>
+          </td>
+        </tr>
 
-      <tr>
-        <td class='label'>&nbsp;</td>
-        <td>
-          <button id='run'/>Test Easing</button>
-        </td>
-      </tr>
-    </table>
+        <tr>
+          <td class='label'><label for='side'>Side:</label></td>
+          <td>
+            <select id='side'>
+              <option value='none'>none</option>
+              <option value='both'>both</option>
+              <option value='in'>in</option>
+              <option value='out'>out</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td class='label'><label for='side'>Duration:</label></td>
+          <td>
+            <input type='text' id='dur' value='3'/>
+            (seconds)
+          </td>
+        </tr>
+
+        <tr>
+          <td class='label'>&nbsp;</td>
+          <td>
+            <button id='run'/>Test Easing</button>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
 
     <div id='area'>
       <div id='test'></div>

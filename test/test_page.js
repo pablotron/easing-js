@@ -26,7 +26,7 @@ Test = {
     Test.el.style.left = e.ease(
       now,      // curr time
       0,        // start position
-      500 - 32, // relative end position
+      500 - 34, // relative end position
       end       // end time
     );
   },
