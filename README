@@ -1,2 +1,33 @@
-Port of Penner ActionScript easing algorithms.
-(see http://robertpenner.com/easing/)
+EasingJS 0.1.0 README
+=====================
+Easing is a JavaScript port of Robert Penner's easing algorithms for
+ActionScript (http://robertpenner.com/easing/).  The latest version of
+this library is always available online at the following URL:
+
+    http://pablotron.org/software/easing-js
+
+Using EasingJS
+==============
+You can use this library in an object-oriented (OOP) or procedural
+manner.  Here's an object-oriented example:
+
+    // create new quadratic easer
+    var e = new Easing.Easer({
+      type: 'quadratic',
+      side: 'both'
+    });
+
+    // calculate ease at 50 out of 100 time units 
+    // for a tween from 10 to 300 
+    var x = e.ease(50, 10, 290, 100);
+
+And here's the same result, using the procedural API:
+
+    // calculate ease at 50 out of 100 time units 
+    // for a tween from 10 to 300
+    var x = Easing.quadratic.ease_both(50, 10, 290, 100);
+
+About the Author
+================
+Paul Duncan (pabs@pablotron.org)
+http://pablotron.org/
