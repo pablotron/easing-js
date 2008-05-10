@@ -26,7 +26,7 @@
  */
 Easing = (function () {
   // return namespace
-  var E       = {};
+  var E = {};
 
   // import math functions to speed up ease callbacks
   var abs     = Math.abs,
@@ -39,13 +39,25 @@ Easing = (function () {
       HALF_PI = Math.PI / 2;
 
   E = {
+    /**
+     * Version of Easing library.
+     * @static
+     */
     VERSION: '0.1.0',
 
+    /**
+     * Default options for Easer.
+     * @static
+     */
     DEFAULTS: {
       type: 'linear',
       side: 'none'
     },
 
+    /**
+     * Hash of valid types and sides.
+     * @static
+     */
     VALID: {
       type: { 
         linear:     true, 
@@ -71,7 +83,19 @@ Easing = (function () {
 
   /**
    * Easing.Easer: Easing class.
-   * @class Easing class.
+   * @class Easing.Easer.
+   * @constructor
+   * 
+   * @param {Hash}  o   Hash of options.  Valid keys are "type" and "side".
+   * 
+   * Example:
+   * 
+   *   // create a new quadratic easer
+   *   e = new Easing.Easer({
+   *     type: 'quadratic',
+   *     side: 'both'
+   *   });
+   * 
    */
   E.Easer = function(o) {
     var key;
@@ -83,6 +107,20 @@ Easing = (function () {
     this.reset(o);
   };
 
+  /**
+   * Reset an Easer with new values.
+   * 
+   * @param {Hash}  o   Hash of options.  Valid keys are "type" and "side".
+   * 
+   * Example:
+   * 
+   *   // reset easer to quintic easing
+   *   e = e.reset({
+   *     type: 'quintic',
+   *     side: 'end'
+   *   });
+   * 
+   */
   E.Easer.prototype.reset = function(o) {
     var key, name, type, side, err;
     for (key in o)
@@ -99,8 +137,8 @@ Easing = (function () {
       throw new Error("unknown side: " + this.side);
 
     // build callback name
-    name = ['ease', type, side].join('_');
-    this.fn = E[name];
+    name = ['ease', side].join('_');
+    this.fn = E[type] && E[type][name];
 
     // make sure callback exists
     if (!this.fn) {
@@ -109,43 +147,66 @@ Easing = (function () {
     }
   };
 
+  /**
+   * Get the ease for a particular time offset.
+   * 
+   * @param {Number}    time_now     Current time offset (in the range of 0-time_dur).
+   * @param {Number}    begin_val    Beginning value.
+   * @param {Number}    change_val   End offset value.
+   * @param {Number}    time_dur     Duration of time.
+   * 
+   * @returns Eased value.
+   * @type Number
+   * 
+   * Example:
+   * 
+   *   // calculate ease at 50 time units for transition from 10 to 300
+   *   var x = e.ease(50, 10, 290, 100);
+   * 
+   */
   E.Easer.prototype.ease = function(time_now, begin_val, change_val, time_dur) {
     return this.fn.apply(this, arguments);
   };
 
-  /*****************/
-  /* linear easing */
-  /*****************/
+  /**
+   * linear easing
+   * @namespace
+   */
+  E.linear = {};
 
-  E.ease_linear_none = function(t, b, c, d) {
+  E.linear.ease_none = function(t, b, c, d) {
     return c * t / d + b;
   };
 
-  /***************/
-  /* back easing */
-  /***************/
+  /**
+   * back easing
+   * @namespace
+   */
+  E.back = {};
 
   var BACK_DEFAULT_S = 1.70158;
 
-  E.ease_back_in = function(t, b, c, d, s) {
+  E.back.ease_in = function(t, b, c, d, s) {
     if (s == undefined) s = BACK_DEFAULT_S;
     return c*(t/=d)*t*((s+1)*t - s) + b;
   };
 
-  E.ease_back_out = function(t, b, c, d, s) {
+  E.back.ease_out = function(t, b, c, d, s) {
 		if (s == undefined) s = BACK_DEFAULT_S;
 		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
 	};
 
-  E.ease_back_both = function(t, b, c, d, s) {
+  E.back.ease_both = function(t, b, c, d, s) {
 		if (s == undefined) s = BACK_DEFAULT_S; 
 		if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
 		return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
 	};
 
-  /*****************/
-  /* bounce easing */
-  /*****************/
+  /**
+   * bounce easing
+   * @namespace
+   */
+  E.bounce = {};
 
   var bounce_ratios = [
     1 / 2.75,
@@ -160,7 +221,7 @@ Easing = (function () {
     2.625 / 2.75
   ];
 
-  E.ease_bounce_out = function(t, b, c, d) {
+  E.bounce.ease_out = function(t, b, c, d) {
     if ((t/=d) < (bounce_ratios[0])) {
       return c*(7.5625*t*t) + b;
     } else if (t < (bounce_ratios[1])) {
@@ -172,68 +233,74 @@ Easing = (function () {
     }
   };
 
-  E.ease_bounce_in = function(t, b, c, d) {
-    return c - E.ease_bounce_out(d-t, 0, c, d) + b;
+  E.bounce.ease_in = function(t, b, c, d) {
+    return c - E.bounce.ease_out(d-t, 0, c, d) + b;
   };
 
-  E.ease_bounce_both = function(t, b, c, d) {
-    if (t < d/2) return E.ease_bounce_in(t*2, 0, c, d) * .5 + b;
-    else return E.ease_bounce_out(t*2-d, 0, c, d) * .5 + c*.5 + b;
+  E.bounce.ease_both = function(t, b, c, d) {
+    if (t < d/2) return E.bounce.ease_in(t*2, 0, c, d) * .5 + b;
+    else return E.bounce.ease_out(t*2-d, 0, c, d) * .5 + c*.5 + b;
   };
 
-  /*******************/
-  /* circular easing */
-  /*******************/
+  /**
+   * circular easing
+   * @namespace
+   */
+  E.circular = {};
 
-  E.ease_circular_in = function(t, b, c, d) {
+  E.circular.ease_in = function(t, b, c, d) {
     return -c * (sqrt(1 - (t/=d)*t) - 1) + b;
   };
 
-  E.ease_circular_out = function(t, b, c, d) {
+  E.circular.ease_out = function(t, b, c, d) {
     return c * sqrt(1 - (t=t/d-1)*t) + b;
   };
 
-  E.ease_circular_both = function(t, b, c, d) {
+  E.circular.ease_both = function(t, b, c, d) {
     if ((t/=d/2) < 1) return -c/2 * (sqrt(1 - t*t) - 1) + b;
     return c/2 * (sqrt(1 - (t-=2)*t) + 1) + b;
   };
 
-  /****************/
-  /* cubic easing */
-  /****************/
+  /**
+   * cubic easing
+   * @namespace
+   */
+  E.cubic = {};
 
-  E.ease_cubic_in = function(t, b, c, d) {
+  E.cubic.ease_in = function(t, b, c, d) {
     return c*(t/=d)*t*t + b;
   };
 
-  E.ease_cubic_out = function(t, b, c, d) {
+  E.cubic.ease_out = function(t, b, c, d) {
     return c*((t=t/d-1)*t*t + 1) + b;
   };
 
-  E.ease_cubic_both = function(t, b, c, d) {
+  E.cubic.ease_both = function(t, b, c, d) {
     if ((t/=d/2) < 1) return c/2*t*t*t + b;
     return c/2*((t-=2)*t*t + 2) + b;
   };
 
-  /******************/
-  /* elastic easing */
-  /******************/
+  /**
+   * elastic easing
+   * @namespace
+   */
+  E.elastic = {};
 
-  E.ease_elastic_in = function(t, b, c, d, a, p) {
+  E.elastic.ease_in = function(t, b, c, d, a, p) {
     if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
     if (!a || a < abs(c)) { a=c; var s=p/4; }
     else var s = p/(2*PI) * asin(c/a);
     return -(a*pow(2,10*(t-=1)) * sin( (t*d-s)*(2*PI)/p )) + b;
   };
 
-  E.ease_elastic_out = function(t, b, c, d, a, p) {
+  E.elastic.ease_out = function(t, b, c, d, a, p) {
     if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
     if (!a || a < abs(c)) { a=c; var s=p/4; }
     else var s = p/(2*PI) * asin(c/a);
     return (a*pow(2,-10*t) * sin( (t*d-s)*(2*PI)/p ) + c + b);
   };
 
-  E.ease_elastic_both = function(t, b, c, d, a, p) {
+  E.elastic.ease_both = function(t, b, c, d, a, p) {
     if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
     if (!a || a < abs(c)) { a=c; var s=p/4; }
     else var s = p/(2*PI) * asin (c/a);
@@ -241,89 +308,98 @@ Easing = (function () {
     return a*pow(2,-10*(t-=1)) * sin( (t*d-s)*(2*PI)/p )*.5 + c + b;
   };
 
-  /**********************/
-  /* exponential easing */
-  /**********************/
+  /**
+   * exponential easing
+   * @namespace
+   */
+  E.exp = {};
 
-  E.ease_exp_in = function(t, b, c, d) {
+  E.exp.ease_in = function(t, b, c, d) {
     return (t==0) ? b : c * pow(2, 10 * (t/d - 1)) + b;
   };
 
-  E.ease_exp_out = function(t, b, c, d) {
+  E.exp.ease_out = function(t, b, c, d) {
     return (t==d) ? b+c : c * (-pow(2, -10 * t/d) + 1) + b;
   };
 
-  E.ease_exp_both = function(t, b, c, d) {
+  E.exp.ease_both = function(t, b, c, d) {
     if (t==0) return b;
     if (t==d) return b+c;
     if ((t/=d/2) < 1) return c/2 * pow(2, 10 * (t - 1)) + b;
     return c/2 * (-pow(2, -10 * --t) + 2) + b;
   };
 
-  /********************/
-  /* quadratic easing */
-  /********************/
+  /**
+   * quadratic easing
+   */
+  E.quadratic = {};
 
-  E.ease_quadratic_in = function(t, b, c, d) {
+  E.quadratic.ease_in = function(t, b, c, d) {
     return c*(t/=d)*t + b;
   };
 
-  E.ease_quadratic_out = function(t, b, c, d) {
+  E.quadratic.ease_out = function(t, b, c, d) {
     return -c *(t/=d)*(t-2) + b;
   };
 
-  E.ease_quadratic_both = function(t, b, c, d) {
+  E.quadratic.ease_both = function(t, b, c, d) {
     if ((t/=d/2) < 1) return c/2*t*t + b;
     return -c/2 * ((--t)*(t-2) - 1) + b;
   };
 
-  /******************/
-  /* quartic easing */
-  /******************/
+  /**
+   * quartic easing
+   * @namespace
+   */
+  E.quartic = {};
 
-  E.ease_quartic_in = function(t, b, c, d) {
+  E.quartic.ease_in = function(t, b, c, d) {
     return c*(t/=d)*t*t*t + b;
   };
 
-  E.ease_quartic_out = function(t, b, c, d) {
+  E.quartic.ease_out = function(t, b, c, d) {
     return -c * ((t=t/d-1)*t*t*t - 1) + b;
   };
 
-  E.ease_quartic_both = function(t, b, c, d) {
+  E.quartic.ease_both = function(t, b, c, d) {
     if ((t/=d/2) < 1) return c/2*t*t*t*t + b;
     return -c/2 * ((t-=2)*t*t*t - 2) + b;
   };
 
-  /******************/
-  /* quintic easing */
-  /******************/
+  /**
+   * quintic easing
+   * @namespace
+   */
+  E.quintic = {};
 
-  E.ease_quintic_in = function(t, b, c, d) {
+  E.quintic.ease_in = function(t, b, c, d) {
     return c*(t/=d)*t*t*t*t + b;
   };
 
-  E.ease_quintic_out = function(t, b, c, d) {
+  E.quintic.ease_out = function(t, b, c, d) {
     return c*((t=t/d-1)*t*t*t*t + 1) + b;
   };
 
-  E.ease_quintic_both = function(t, b, c, d) {
+  E.quintic.ease_both = function(t, b, c, d) {
     if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
     return c/2*((t-=2)*t*t*t*t + 2) + b;
   };
 
-  /*********************/
-  /* sinusoidal easing */
-  /*********************/
+  /**
+   * sinusoidal easing
+   * @namespace
+   */
+  E.sine = {};
 
-  E.ease_sine_in = function(t, b, c, d) {
+  E.sine.ease_in = function(t, b, c, d) {
     return -c * cos(t/d * (HALF_PI)) + c + b;
   };
 
-  E.ease_sine_out = function(t, b, c, d) {
+  E.sine.ease_out = function(t, b, c, d) {
     return c * sin(t/d * (HALF_PI)) + b;
   };
 
-  E.ease_sine_both = function(t, b, c, d) {
+  E.sine.ease_both = function(t, b, c, d) {
     return -c/2 * (cos(PI*t/d) - 1) + b;
   };
 
