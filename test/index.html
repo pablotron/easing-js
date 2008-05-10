@@ -33,6 +33,10 @@
         top:      0px;
         left:     0px;
       }
+
+      input#dur {
+        width: 30px;
+      }
     </style>
   </head>
 
@@ -42,16 +46,16 @@
         <td class='label'><label for='type'>Type:</label></td>
         <td>
           <select id='type'>
-            <option value='bounce'>Bounce easing.</option>
-            <option value='circular'>Circular easing.</option>
-            <option value='cubic'>Cubic (x^3) easing.</option>
-            <option value='elastic'>Elastic easing.</option>
-            <option value='exp'>Exponential (2^x) easing.</option>
-            <option value='linear'>Linear easing (default).</option>
-            <option value='quadratic'>Quadratic (x^2) easing.</option>
-            <option value='quartic'>Quartic (x^4) easing</option>
-            <option value='quintic'>Quintic (x^5) easing.</option>
-            <option value='sine'>Sinusoidal (cos(x)) easing.</option>
+            <option value='bounce'>Bounce</option>
+            <option value='circular'>Circular</option>
+            <option value='cubic'>Cubic (x^3)</option>
+            <option value='elastic'>Elastic</option>
+            <option value='exp'>Exponential (2^x)</option>
+            <option value='linear'>Linear(default).</option>
+            <option value='quadratic'>Quadratic (x^2)</option>
+            <option value='quartic'>Quartic (x^4)</option>
+            <option value='quintic'>Quintic (x^5)</option>
+            <option value='sine'>Sinusoidal (cos(x))</option>
           </select>
         </td>
       </tr>
@@ -71,7 +75,8 @@
       <tr>
         <td class='label'><label for='side'>Duration:</label></td>
         <td>
-          <input type='text' id='dur' value='5'/>
+          <input type='text' id='dur' value='3'/>
+          (seconds)
         </td>
       </tr>
 
