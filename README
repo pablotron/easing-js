@@ -27,6 +27,12 @@ And here's the same result, using the procedural API:
     // for a tween from 10 to 300
     var x = Easing.quadratic.ease_both(50, 10, 290, 100);
 
+A test page which allows you to try the various side and type
+combinations is available in the test/ directory, or online at
+the following URL:
+
+    http://pablotron.org/software/easing-js/test/ 
+
 EasingJS Modes
 ==============
 Available easing types:
