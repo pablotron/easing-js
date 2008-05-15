@@ -3,7 +3,7 @@
     <title>EasingJS Test Page</title>
 
     <script type='text/javascript' src='../easing.js'></script>
-    <script type='text/javascript' src='test_page.js'></script>
+    <script type='text/javascript' src='test.js'></script>
 
     <style type='text/css'>
       body * {
@@ -15,12 +15,15 @@
         text-align: right;
       }
 
-      div#area {
-        border:   1px solid black;
+      div#info, div#area, fieldset#cfg {
         margin:   10px;
         padding:  5px;
-        height:   34px;
         width:    500px;
+      }
+
+      div#area {
+        border:   1px solid black;
+        height:   34px;
       }
 
       div#test {
@@ -35,12 +38,6 @@
         left:     0px;
       }
 
-      fieldset#cfg {
-        margin: 10px;
-        padding: 5px;
-        width: 500px;
-      }
-
       input#dur {
         width: 30px;
       }
@@ -50,12 +47,18 @@
   <body onload='Test.init();'>
     <h1>EasingJS Test Page</h1>
 
-    <p>
-      This is a test page for <a
-      href='http://pablotron.org/software/easing-js/'>EasingJS</a>.
-      To test easing, select an easing type and side, then click the
-      <em>Test Easing</em> button.
-    </p>
+    <div id='info'>
+      <p>
+        This is a test page for <a
+        href='http://pablotron.org/software/easing-js/'>EasingJS</a>.
+        To test easing, select an easing type and side, then click the
+        <em>Test Easing</em> button.
+      </p>
+
+      <p>
+        <a href='test.js'>View test code</a>.
+      </p>
+    </div>
 
     <fieldset id='cfg'>
       <legend>Easing Settings</legend>

@@ -1,5 +1,8 @@
 
 Test = {
+  /**
+   * Utility function to get the current time.
+   */
   now: function() {
     if (Date.now)
       return Date.now();
@@ -7,15 +10,25 @@ Test = {
       return (new Date().getTime());
   },
 
+  /**
+   * Utility function to get an element by ID.
+   */
   get: function(id) {
     return document.getElementById(id);
   },
 
-  get_val: function(key) {
-    var sel = Test.get(key);
+  /**
+   * Get the value of the specified select element.
+   */
+  get_val: function(id) {
+    var sel = Test.get(id);
     return sel.options[sel.selectedIndex].value;
   },
 
+  /**
+   * Animation callback.  Called at 20ms intervals while
+   * an animation is in progress.
+   */
   step: function() {
     var e = Test.easer,
         now = Test.now() - Test.start,
@@ -38,6 +51,9 @@ Test = {
     );
   },
 
+  /**
+   * Click handler for "Test Easing" button.
+   */
   run: function() {
     var dur = Test.get('dur').value;
 
@@ -60,6 +76,9 @@ Test = {
     }, 20);
   },
 
+  /**
+   * Body onload handler..
+   */
   init: function() {
     // cache test element
     Test.el = Test.get('test');
