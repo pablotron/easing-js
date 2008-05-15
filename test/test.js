@@ -58,16 +58,22 @@ Test = {
   /**
    * Click handler for "Test Easing" button.
    */
-  run: function() {
-    var dur = Test.get('dur').value;
+  run: function(o) {
+    var dur;
+
+    // init options
+    o = o || {};
+
+    // get duration
+    dur = o.dur || Test.get('dur').value;
 
     if (Test.interval_id)
       clearInterval(Test.interval_id);
 
     // create easer
     Test.easer = new Easing.Easer({
-      type: Test.get_val('type'),
-      side: Test.get_val('side')
+      type: o.type || Test.get_val('type'),
+      side: o.side || Test.get_val('side')
     });
 
     // save start and end times
@@ -87,9 +93,31 @@ Test = {
     // cache test element
     Test.el = Test.get('test');
 
-    // attache event listener
+    // attach event listener to run button
     Test.get('run').onclick = function() {
       Test.run();
+    };
+
+    // attach event listener to bounce link
+    Test.get('bounce').onclick = function() {
+      Test.run({
+        type: 'bounce',
+        side: 'out',
+        dur:  1.5
+      });
+
+      return false;
+    };
+
+    // attach event listener to elastic link
+    Test.get('elastic').onclick = function() {
+      Test.run({
+        type: 'elastic',
+        side: 'out',
+        dur:  2.0
+      });
+
+      return false;
     };
   }
 };
