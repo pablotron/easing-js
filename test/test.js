@@ -1,3 +1,7 @@
+/**
+ * Test/Demo page for EasingJS
+ * (http://pablotron.org/software/easing-js).
+ */
 
 Test = {
   /**
