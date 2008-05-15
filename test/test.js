@@ -103,7 +103,7 @@ Test = {
       Test.run({
         type: 'bounce',
         side: 'out',
-        dur:  1.0
+        dur:  1.25
       });
 
       return false;
